@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cm.duu.dao.MovieDao">
+	
+	<insert id="addMovie"  parameterType="Movie" >
+		insert into movies (moviename,movieurl) values (#{moviename},#{movieurl})
+	</insert>
+	
+	<select id="queryMovies" parameterType="Movie" resultType="Movie" >
+		select * from movies where movietypedetail = #{movietypedetail}
+	</select>
+	
+	<!--分页： 查询不同类型电影的总条数 -->
+	<select id="queryByType" parameterType="Movie" resultType="java.lang.Integer" >
+		select count(*) from movies where movietypedetail = #{movietypedetail}
+	</select>
+	
+	<!--分页：前面传了三个参数，一个对象，两个int-->	
+	<select id="queryMoviesByPage"  resultType="Movie"  >
+		select * from movies where movietypedetail = #{arg0} limit #{arg1},#{arg2}
+	</select>
+
+</mapper>
