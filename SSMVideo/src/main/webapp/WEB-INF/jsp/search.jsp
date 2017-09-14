@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" isELIgnored="false"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@	taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>single</title>
+<title>Shows</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="keywords" content="My Play Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
@@ -21,7 +22,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 </head>
   <body>
-<body>
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container-fluid">
         <div class="navbar-header">
@@ -230,13 +231,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 					<script type="text/javascript">
 								function login() {
+									
 											$.ajax({
+												
+											
 												url : "/login",
+												
 												dataType : "json",
 												data : {
 													"username" : $("#username").val(),
 													"password" : $("#password").val(),
 												},
+												
+												
 												success : function(result) {
 													if (result.tr) {
 													$.magnificPopup.close();
@@ -249,6 +256,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 														$("#error").html("用户或者密码错误！").show();
 													}
 												},
+												
 												error : function() {
 													alert("error");
 												}
@@ -288,7 +296,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="clearfix"> </div>
       </div>
     </nav>
-        <div class="col-sm-3 col-md-2 sidebar">
+		<div class="col-sm-3 col-md-2 sidebar">
 			<div class="top-navigation">
 				<div class="t-menu">MENU</div>
 				<div class="t-img">
@@ -300,14 +308,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<ul class="nav nav-sidebar">
 				<li ><a href="/home" class="home-icon"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
-				<li><a href="/showTV?page=1&movietypedetail=TV&movietypehead=TV" class="user-icon"><span
+				<li class="active"><a href="/showTV?page=1&movietypedetail=TV&movietypehead=TV" class="user-icon"><span
 						class="glyphicon glyphicon-home glyphicon-blackboard"
 						aria-hidden="true"></span>TV </a></li>
 				<li><a href="#" class="menu1"><span
 						class="glyphicon glyphicon-film" aria-hidden="true"></span>电影<span
 						class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
 				<ul class="cl-effect-2">
-					<li><a href="showmovie?page=1&movietypedetail=comedy">喜剧</a></li>
+					<li><a href="/showmovie?page=1&movietypedetail=comedy">喜剧</a></li>
 					<li><a href="/showmovie?page=1&movietypedetail=science">科幻</a></li>
 					<li><a href="/showmovie?page=1&movietypedetail=action">动作</a></li>
 					<li><a href="/showmovie?page=1&movietypedetail=horrible">恐怖</a></li>
@@ -357,117 +365,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<div class="show-top-grids">
-				<div class="col-sm-8 single-left">
-					<div class="song"  style="width:100%">
-						<div class="song-info">
-							<h3>${mv['singlemovie'].moviename }</h3>	
-						</div>
-						<div class="video-grid">
-							<video width="100%" height="100%" controls>
-  								<source src="${mv['singlemovie'].movieurl }" type="video/mp4">
-				            </video> 
-						</div>
-					</div>	
-					<div class="clearfix"> </div>
-					<div class="published">
-						<script src="jquery.min.js"></script>
-							<script>
-								$(document).ready(function () {
-									size_li = $("#myList li").size();
-									x=1;
-									$('#myList li:lt('+x+')').show();
-									$('#loadMore').click(function () {
-										x= (x+1 <= size_li) ? x+1 : size_li;
-										$('#myList li:lt('+x+')').show();
-									});
-									$('#showLess').click(function () {
-										x=(x-1<0) ? 1 : x-1;
-										$('#myList li').not(':lt('+x+')').hide();
-									});
-								});
-							</script>
-							<div class="load_more">	
-								<ul id="myList">
-									<li>
-										<h4>发布于：${mv['singlemovie'].publishtime }</h4>
-										<p>简 介：${mv['singlemovie'].introduction }</p>
-									</li>
-								</ul>
-							</div>
-					</div>
-					<div class="all-comments">
-						<div class="all-comments-info">
-							<a href="#">All Comments (8,657)</a>
-							<div class="box">
-								<form>
-									<input type="text" placeholder="Name" required=" ">			           					   
-									<input type="text" placeholder="Email" required=" ">
-									<input type="text" placeholder="Phone" required=" ">
-									<textarea placeholder="Message" required=" "></textarea>
-									<input type="submit" value="SEND">
-									<div class="clearfix"> </div>
-								</form>
-							</div>
-							<div class="all-comments-buttons">
-								<ul>
-									<li><a href="#" class="top">Top Comments</a></li>
-									<li><a href="#" class="top newest">Newest First</a></li>
-									<li><a href="#" class="top my-comment">My Comments</a></li>
-								</ul>
-							</div>
-						</div>						
-					</div>
-				</div>
-				<div class="col-md-4 single-right">
-					<h3>Up Next</h3>
-					<c:forEach items="${mv['rightmovies'] }" var="ss">
-					<div class="single-grid-right">
-						<div class="single-right-grids">
-							<div class="col-md-4 single-right-grid-left">
-								<a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
+			<div class="show-top-grids" style="width:100%;height:100%;">			
+						<c:forEach items="${contnt }" var="ss">
+							<div style="width:20%;height:100%;padding:10px;float:left">
+							<div style="width:90%;">
+								<div class="resent-grid-img recommended-grid-img">
+									<a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
 						runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
-						" alt="等待加载..." ><img src="${ss.moviepicture }" /></a>
+						&publishtime=${ss.publishtime}">
+									<img src="${ss.moviepicture }" height="200" width="200"  />
+									</a>
+									<div class="time small-time show-time">
+										<p>${ss.runningtime }</p>
+									</div>
+									<div class="clck show-clock">
+										<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+									</div>
+								</div>
+								<div class="resent-grid-info recommended-grid-info">
+									<h5><a  class="title">${ss.moviename }:${ss.introduction }</a></h5>
+									<p class="author"><a href="#" class="author">${ss.publisher }</a></p>
+									<p class="views">1,200 views</p>
+								</div>
 							</div>
-							<div class="col-md-8 single-right-grid-right">
-								<a class="title" href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
-						runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
-						" alt="等待加载..." >${ss.moviename }</a>
-								<p class="author"><a href="#" class="author">${ss.publisher }</a></p>
-								<p class="views">2,114,200 views</p>
-							</div>
-							<div class="clearfix"> </div>
-						</div>
-					</div>
-					</c:forEach>
-				</div>
+							</div>	
+							</c:forEach>
+							<div class="clearfix"> </div>																			
+								<div style="width:40%;height:300px;text-align:center;margin-left:50%">
+								</div>	
+												
 				<div class="clearfix"> </div>
 			</div>
-			<!-- footer -->
-		<div class="footer">
-			<div class="footer-grids">
-				<div class="footer-top">
-					<div class="footer-top-nav">
-						<ul>
-							<li><a href="about.html">关于</a></li>
-							<li><a href="copyright.html">版权</a></li>
-							<li><a href="#">广告</a></li>
-							<li><a href="developers.html">开发者</a></li>
-						</ul>
-					</div>
-					<div class="footer-bottom-nav">
-						<ul>
-							<li><a href="terms.html">Terms</a></li>
-							<li><a href="privacy.html">Privacy</a></li>
-							<li><a href="#small-dialog4"
-								class="play-icon popup-with-zoom-anim">Send feedback</a></li>
-							<li><a href="privacy.html">Policy & Safety </a></li>
-							<li><a href="try.html">Try something new!</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>		
-		</div>		
+		
   </body>
 </html>

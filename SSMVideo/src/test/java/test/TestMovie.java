@@ -25,14 +25,11 @@ public class TestMovie {
 	
 	@Test
 	public void addMovie(){
-		List<Movie> listMovie=new ArrayList<Movie>();
-		listMovie.add(new Movie("hot"));
-		listMovie.add(new Movie("comedy"));
-//		listMovie.add(new Movie("科幻"));
-//		listMovie.add(new Movie("体育"));
-		Map<String,List<Movie>> a=movieService.queryMovies(listMovie);
-		a.forEach((x,y)->System.out.println(x));
-//		a.get("comedy1").forEach(p->System.out.println(p));
+		List<Movie> a=movieService.queryMoivesForSearch("9");
+		
+		
+		
+		a.forEach((x)->System.out.println(x));
 
 	}
 	

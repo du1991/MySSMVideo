@@ -20,6 +20,11 @@ public class MovieController {
 	@Autowired
 	private MovieService movieService;
 	
+	@RequestMapping("/search")
+	public ModelAndView showSearch(@ModelAttribute("movie") Movie movie){
+		return new ModelAndView("search","contnt",movieService.queryMoivesForSearch(movie.getMoviename()));
+	}
+	
 	@RequestMapping("/showsport")
 	public ModelAndView showSport(@ModelAttribute("movie") Movie movie,@RequestParam("page") Integer nowpage){
 		return new ModelAndView("sport","map",movieService.queryMoviesByPage(movie, nowpage));

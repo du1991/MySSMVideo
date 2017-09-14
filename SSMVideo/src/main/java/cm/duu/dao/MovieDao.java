@@ -13,5 +13,8 @@ public interface MovieDao {
 	public int queryByType(Movie movie); 
 	public List<Movie> queryMoviesByPage(String movietypedetail,int start,int num);
 	
+	//查找
+	public List<Movie> queryMoivesForSearch(String keyWords);
+	
 	
 }

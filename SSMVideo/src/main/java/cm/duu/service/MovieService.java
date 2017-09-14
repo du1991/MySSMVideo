@@ -11,5 +11,6 @@ public interface MovieService {
 	public Map<String,List<Movie>> queryMovies(List<Movie> movietypes);
 	public List<Movie> queryByType(Movie movie);
 	public Map<String,Object> queryMoviesByPage(Movie movie,int nowpage);
+	public List<Movie> queryMoivesForSearch(String keyWords);
 
 }

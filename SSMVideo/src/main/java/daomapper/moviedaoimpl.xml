@@ -19,5 +19,11 @@
 	<select id="queryMoviesByPage"  resultType="Movie"  >
 		select * from movies where movietypedetail = #{arg0} limit #{arg1},#{arg2}
 	</select>
+	
+	<!-- 传递单个String参数 -->
+	<select id="queryMoivesForSearch" resultType="Movie">
+		select * from movies where moviename like '%${_parameter}%'
+	
+	</select>
 
 </mapper>

@@ -44,15 +44,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
 			<div class="top-search">
-				<form class="navbar-form navbar-right">
-					<input type="text" class="form-control">
+				<form class="navbar-form navbar-right" action="search">
+					<input type="text" class="form-control" name="moviename">
 					<input type="submit" value=" ">
 				</form>
 			</div>
 			<div class="header-top-right">
 				<div class="file">
 					<span id="welcome" ></span>
-					<a href="upload.html">上传</a>
+					<a href="upload">上传</a>
 				</div>				
 				<div class="signin">
 					<a href="#small-dialog2" class="play-icon popup-with-zoom-anim" id="register">注册</a>

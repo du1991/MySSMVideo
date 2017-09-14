@@ -15,6 +15,11 @@ public class MovieServiceImpl implements MovieService{
 	@Resource
 	private MovieDao moviedao;
 	
+	public List<Movie> queryMoivesForSearch(String keyWords){
+		return moviedao.queryMoivesForSearch(keyWords);
+		
+	}
+	
 	//分页查询的Service层
 	public Map<String,Object> queryMoviesByPage(Movie movie,int nowpage){
 		
