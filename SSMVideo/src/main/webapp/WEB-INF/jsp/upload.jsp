@@ -291,18 +291,47 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     </nav>
    
 		
-		<div class="upload" style="height:calc(100% - 208px);position:relative;top:86px;text-align:center" >
-			<p>电影名<input type="text" /></p>
-			<p>电影路径<input type="text" /></p>
-			<p>时长<input type="text" /></p>
-			<p>电影图片<input type="text" /></p>
-			<p>描述<input type="text" /></p>
-			<p>导演<input type="text" /></p>
-			<p>主要类型<input type="text" /></p>
-			<p>详细类型<input type="text" /></p>
-			<p>发布时间<input type="text" /></p>
-
+		<div  style="padding-top:50px;padding-left:200px;height:calc(100% - 208px);position:relative;top:86px;text-align:left;font-size:22px
+		;background:url(/images/sss.jpg) no-repeat 60% 30%;background-size:cover" >
+		<p >电影名称:<input id="name" type="text" style="width:270px;height:40px;"/></p>
+			<p>
+			电影路径:<input id="url" type="text" /></p>
+			<p>视频时长:<input id="longtime" type="text" /></p>
+			<p>视频导演:<input id="director" type="text" /></p>
 			
+			<p>主要类型:<select >
+				<option>movie</option>
+				<option>sport</option>
+				<option>MV</option>
+				<option>TV</option>
+				<option>news</option>
+			</select></p>
+			
+			
+			<p>详细类型:
+				<select >
+				<option>comedy</option>
+				<option>hot</option>
+				<option>science</option>
+				<option>sport</option>
+				<option>football</option>
+				<option>basketball</option>
+				<option>badminton</option>
+				<option>pingpong</option>
+				<option>action</option>
+				<option>horrible</option>
+				<option>news</option>
+				
+				
+				
+				<option>MV</option>
+				<option>TV</option>
+			</select>
+			
+			</p>
+			<p>电影图片:<input id="picture" type="text" /></p>
+			<p style="vertical-align:top;"><span >电影描述:</span></p>&nbsp;&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea></textarea>
 		
 				<div style="text-align:center;width:75px">
 							<div style="background:url(/images/ss.png);width:73px;height:75px">
