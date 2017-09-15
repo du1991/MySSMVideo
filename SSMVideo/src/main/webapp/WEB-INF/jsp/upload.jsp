@@ -332,10 +332,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<p>电影图片:<input id="picture" type="text" /></p>
 			<p style="vertical-align:top;"><span >电影描述:</span></p>&nbsp;&nbsp;&nbsp;&nbsp;
 			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea></textarea>
-		
-				<div style="text-align:center;width:75px">
+				<div style="text-align:center;width:75px">       
 							<div style="background:url(/images/ss.png);width:73px;height:75px">
-							<input type="file" value="Choose file.." style="width:73px;height:75px;opacity:0" ></div>				
+							<form action="http://localhost:8080/uploadfile" method="post" enctype="multipart/form-data">  					
+								<input type="file" name="file" style="width:73px;height:75px;opacity:0" > 
+								<input type="submit" value="上传"> 
+    							</form>
+							</div>				
+							 
 				</div>
 		</div>
 

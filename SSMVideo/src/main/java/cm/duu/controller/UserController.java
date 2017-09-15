@@ -1,5 +1,8 @@
 package cm.duu.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
 
@@ -31,4 +35,19 @@ public class UserController {
 	public String upload(){
 		return "upload";
 	}
+	
+	@RequestMapping("/uploadfile")  
+	public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws IOException{  
+        String path = request.getSession().getServletContext().getRealPath("upload");  
+        System.out.println(path);
+        String fileName = file.getOriginalFilename();    
+        File dir = new File(path,fileName);          
+        if(!dir.exists()){  
+            dir.mkdirs();  
+        }  
+        file.transferTo(dir);  
+        return "ko";  
+    }  
+	
+	
 }
