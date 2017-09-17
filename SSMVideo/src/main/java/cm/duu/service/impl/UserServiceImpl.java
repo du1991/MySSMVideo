@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 		Map<String,Object> map=new HashMap<String,Object>();
 		 if(userDao.queryUserByName(user)!=null){
 			 map.put("tr", true);		
-			 session.setAttribute("user", userDao.queryUserByName(user));
+			 session.setAttribute("sessionuser", userDao.queryUserByName(user));
 			 map.put("user", userDao.queryUserByName(user).getUsername());
 			 return map;
 		 }
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	public void delSession(HttpSession session) {
-		session.removeAttribute("user");
+		session.removeAttribute("sessionuser");
 	}
 
 }

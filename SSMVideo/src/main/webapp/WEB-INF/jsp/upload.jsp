@@ -22,32 +22,43 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
   <body style="height:100%;padding:0">
 	
-    <nav class="navbar navbar-inverse navbar-fixed-top" style="height:86px">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/home"><h1><img src="images/logo.png" alt="" /></h1></a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-			<div class="top-search">
-				<form class="navbar-form navbar-right" action="search">
-					<input type="text" class="form-control" name="moviename">
-					<input type="submit" value=" ">
-				</form>
-			</div>  
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="/home"><h1>
+					<img src="images/logo.png" alt="" />
+				</h1></a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
 			<div class="header-top-right">
 				<div class="file">
-					<span id="welcome" ></span>
+					<c:if test="${!empty sessionScope}">
+					<span id="welcome" >欢迎：${sessionScope.sessionuser.username}</span>
+					</c:if>
+					
+					<c:if test="${!empty sessionScope}">
 					<a href="upload">上传</a>
+					</c:if>
+					<c:if test="${empty sessionScope}">
+					<a onclick="pleaseupload()">上传</a>
+					</c:if>
+				
+					
 				</div>				
 				<div class="signin">
+					<c:if test="${empty sessionScope}">
 					<a href="#small-dialog2" class="play-icon popup-with-zoom-anim" id="register">注册</a>
-					<a  id="loginout" style="display:none" onclick="logout()">退出</a>
+					</c:if>
+					<c:if test="${!empty sessionScope}">
+					<a  id="loginout" href="logout">退出</a>
+					</c:if>
 					<script type="text/javascript" src="js/modernizr.custom.min.js"></script>
 					<link href="css/popuo-box.css" rel="stylesheet" type="text/css" media="all" />
 					<script src="js/jquery.magnific-popup.js" type="text/javascript"></script>
@@ -224,11 +235,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								removalDelay : 300,
 								mainClass : 'my-mfp-zoom-in'
 							});
-
 						});
-					</script>
+					</script>					
+					<script type="text/javascript">		
+								function pleaseupload(){
+									alert("请先登陆！")
+								}
 					
-					<script type="text/javascript">
+					
 								function login() {
 											$.ajax({
 												url : "/login",
@@ -239,12 +253,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												},
 												success : function(result) {
 													if (result.tr) {
-													$.magnificPopup.close();
-													$("#welcome").html("欢迎："+result.user).show();
-													$("#register").hide();
-													$("#logout").hide();
-													$("#loginout").show();
-													$("#error").html("");
+														window.location="/home";
 													} else {
 														$("#error").html("用户或者密码错误！").show();
 													}
@@ -253,20 +262,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 													alert("error");
 												}
 											});
-								}
-								
-								function logout(){
-									$("#welcome").hide();
-									$("#register").show();
-									$("#logout").show();
-									$("#loginout").hide();
-								}							
+								}				
 								</script>
 				</div>
 				<div class="signin">
-					<a href="#small-dialog" class="play-icon popup-with-zoom-anim" id="logout">登录</a>			
+					<c:if test="${empty sessionScope}">
+					<a href="#small-dialog" class="play-icon popup-with-zoom-anim">登录</a>			
+					</c:if>
+					
 					<div id="small-dialog" class="mfp-hide">
-						<h3>Login</h3>
+						<h3>登录</h3>
 						<div class="social-sits">
 							<img src="/images/gm1.jpg">
 						</div>
@@ -274,31 +279,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<p id=error style="color: red;height:20px" ></p>
 							<input type="text" class="email" id="username" placeholder="Enter email / mobile" required="required" pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" name="username" /> 
 							<input type="password" placeholder="Password" required="required" id="password" pattern=".{6,}" title="Minimum 6 characters required" autocomplete="off" name="password" /> 
-							<input type="button" value="LOGIN" onclick="login()" id="login" />
-							<div class="forgot">
-								<a href="#">Forgot password ?</a>
-							</div>
+							<input type="button" value="登录" onclick="login()" id="login" />
+							
 						</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
-			
+				<div class="clearfix"></div>
 			</div>
-        </div>
-	
-      </div>
-    
-    </nav>
-   
-		
+		</div>
+		<div class="clearfix"></div>
+	</div>
+	</nav>
 		<div  style="padding-top:50px;padding-left:200px;height:calc(100% - 208px);position:relative;top:86px;text-align:left;font-size:22px
 		;background:url(/images/sss.jpg) no-repeat 60% 30%;background-size:cover" >
-		<p >电影名称:<input id="name" type="text" style="width:270px;height:40px;"/></p>
+
+
+				<form action="uploadfile" method="post" enctype="multipart/form-data">  					
+								<input type="file" name="file"  > 
+										<p >电影名称:<input id="name" type="text" style="width:270px;height:40px;"/></p>
 			<p>
 			电影路径:<input id="url" type="text" /></p>
 			<p>视频时长:<input id="longtime" type="text" /></p>
 			<p>视频导演:<input id="director" type="text" /></p>
-			
 			<p>主要类型:<select >
 				<option>movie</option>
 				<option>sport</option>
@@ -306,8 +309,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<option>TV</option>
 				<option>news</option>
 			</select></p>
-			
-			
 			<p>详细类型:
 				<select >
 				<option>comedy</option>
@@ -321,26 +322,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<option>action</option>
 				<option>horrible</option>
 				<option>news</option>
-				
-				
-				
 				<option>MV</option>
 				<option>TV</option>
 			</select>
 			
 			</p>
 			<p>电影图片:<input id="picture" type="text" /></p>
-			<p style="vertical-align:top;"><span >电影描述:</span></p>&nbsp;&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<textarea></textarea>
-				<div style="text-align:center;width:75px">       
-							<div style="background:url(/images/ss.png);width:73px;height:75px">
-							<form action="http://localhost:8080/uploadfile" method="post" enctype="multipart/form-data">  					
-								<input type="file" name="file" style="width:73px;height:75px;opacity:0" > 
-								<input type="submit" value="上传"> 
+			<p style="">电影描述</p><textarea></textarea>
+								
+								<p><input type="submit" value="上传"></p> 
     							</form>
-							</div>				
-							 
-				</div>
 		</div>
 
 			<div class="footer" style="height:122px;position:relative;top:86px">
@@ -366,6 +357,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						</div>
 					</div>
 				</div>
-			</div></div>
+			</div>
   </body>
 </html>

@@ -24,6 +24,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+	@RequestMapping("/logout")
+	public String logout(HttpServletRequest request){
+		userService.delSession(request.getSession());
+		return "redirect:/home";
+	}
+	
 	@RequestMapping("/login")
 	@ResponseBody
 	public Object login(@ModelAttribute("s") User user,
@@ -40,7 +46,8 @@ public class UserController {
 	public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws IOException{  
         String path = request.getSession().getServletContext().getRealPath("upload");  
         System.out.println(path);
-        String fileName = file.getOriginalFilename();    
+        String fileName = file.getOriginalFilename(); 
+        System.out.println(fileName);
         File dir = new File(path,fileName);          
         if(!dir.exists()){  
             dir.mkdirs();  
