@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	恭喜上传成功
+	文件过大！！！
 </body>
 </html>

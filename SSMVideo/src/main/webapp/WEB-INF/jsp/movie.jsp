@@ -299,28 +299,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	</nav>
 		<div class="col-sm-3 col-md-2 sidebar">
-			<div class="top-navigation">
-				<div class="t-menu">MENU</div>
-				<div class="t-img">
-					<img src="images/lines.png" alt="" />
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-				<div class="drop-navigation drop-navigation">
+		<div class="drop-navigation drop-navigation">
 			<ul class="nav nav-sidebar">
-				<li ><a href="/home" class="home-icon"><span
+				<li class="active"><a href="/home" class="home-icon"><span
 						class="glyphicon glyphicon-home" aria-hidden="true"></span>主页</a></li>
-				<li ><a href="/showTV?page=1&movietypedetail=TV" class="user-icon"><span
-						class="glyphicon glyphicon-home glyphicon-blackboard"
-						aria-hidden="true"></span>TV </a></li>
-				<li class="active"><a href="#" class="menu1"><span
+				<li><a href="/showTV?page=1&movietypedetail=TV&movietypehead=TV" class="user-icon"><span class="glyphicon glyphicon-home glyphicon-blackboard" aria-hidden="true"></span>
+					TV 			
+				</a></li>
+				<li><a href="#" class="menu1"><span
 						class="glyphicon glyphicon-film" aria-hidden="true"></span>电影<span
 						class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
 				<ul class="cl-effect-2">
-					<li><a href="/showmovie?page=1&movietypedetail=comedy">喜剧</a></li>
-					<li><a href="/showmovie?page=1&movietypedetail=science">科幻</a></li>
-					<li><a href="/showmovie?page=1&movietypedetail=action">动作</a></li>
-					<li><a href="/showmovie?page=1&movietypedetail=horrible">恐怖</a></li>
+					<li><a href="/showmovie?page=1&movietypedetail=comedy&movietypehead=movie">喜剧</a></li>
+					<li><a href="/showmovie?page=1&movietypedetail=science&movietypehead=movie">科幻</a></li>
+					<li><a href="/showmovie?page=1&movietypedetail=action&movietypehead=movie">动作</a></li>
+					<li><a href="/showmovie?page=1&movietypedetail=horrible&movietypehead=movie">恐怖</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -333,10 +326,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						class="glyphicon glyphicon-film glyphicon-king" aria-hidden="true"></span>体育<span
 						class="glyphicon glyphicon-menu-down" aria-hidden="true"></span></a></li>
 				<ul class="cl-effect-1">
-					<li><a href="/showsport?page=1&movietypedetail=football">足球</a></li>
-					<li><a href="/showsport?page=1&movietypedetail=basketball">篮球</a></li>
-					<li><a href="/showsport?page=1&movietypedetail=badminton">羽毛球</a></li>
-					<li><a href="/showsport?page=1&movietypedetail=pingpong">乒乓球</a></li>
+					<li><a href="/showsport?page=1&movietypedetail=football&movietypehead=sport">足球</a></li>
+					<li><a href="/showsport?page=1&movietypedetail=basketball&movietypehead=sport">篮球</a></li>
+					<li><a href="/showsport?page=1&movietypedetail=badminton&movietypehead=sport">羽毛球</a></li>
+					<li><a href="/showsport?page=1&movietypedetail=pingpong&movietypehead=sport">乒乓球</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -346,9 +339,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						});
 					});
 				</script>
-				<li><a href="/showMV?page=1&movietypedetail=MV" class="song-icon"><span
+				<li><a href="/showMV?page=1&movietypedetail=MV&movietypehead=MV" class="song-icon"><span
 						class="glyphicon glyphicon-music" aria-hidden="true"></span>MV</a></li>
-				<li><a href="/shownews?page=1&movietypedetail=news" class="news-icon"><span
+				<li><a href="/shownews?page=1&movietypedetail=news&movietypehead=news" class="news-icon"><span
 						class="glyphicon glyphicon-envelope" aria-hidden="true"></span>新闻</a></li>
 			</ul>
 			<!-- script-for-menu -->
@@ -365,7 +358,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 		</div>
-        </div>
+	</div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 			<div class="show-top-grids" style="width:100%;height:100%;">
 									
@@ -400,25 +393,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								if($("#pagein").val()==""){
 									a=1;
 								}
-									$("#pageskip").attr("href","/showmovie?page="+a+"&movietypedetail=${map['movietypedetail']}");
+									$("#pageskip").attr("href","/showmovie?page="+a+"&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}");
 								}
 							</script>
 							
 							<div style="width:40%;height:300px;text-align:center;margin-left:50%">
 								<c:if test="${fn:length(map['mappingMovies'])>6 }">
 								<span>共<input style="width:30px" type="text" value="${map['pages'] } 页"><input style="width:40px" type="text" value="${map['count'] } 条"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<span><a href="/showmovie?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}"><button >上一页</button></a></span>
+								<span><a href="/showmovie?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}
+								&movietypehead=${map['movietypehead']}"><button >上一页</button></a></span>
 								${map['bar'] }
-								<span><a href="/showmovie?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}"><button >下一页</button></a></span>
+								<span><a href="/showmovie?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >下一页</button></a></span>
 								&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="pagein" type="text" style="width:40px"><a id="pageskip" ><button onclick="skip()">GO</button></a></span>		
 								</c:if>
 							</div>	
 							<c:if test="${fn:length(map['mappingMovies'])<6 }">
 								<div style="width:40%;height:300px;text-align:center;margin-left:50%">
 								<span>共<input style="width:30px" type="text" value="${map['pages'] } 页"><input style="width:40px" type="text" value="${map['count'] } 条"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<span><a href="/showmovie?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}"><button >上一页</button></a></span>
+								<span><a href="/showmovie?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >上一页</button></a></span>
 								${map['bar'] }
-								<span><a href="/showmovie?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}"><button >下一页</button></a></span>
+								<span><a href="/showmovie?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >下一页</button></a></span>
 								&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="pagein" type="text" style="width:40px"><a id="pageskip" ><button onclick="skip()">GO</button></a></span>		
 								</div>	
 							</c:if>								

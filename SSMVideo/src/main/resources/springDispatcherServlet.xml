@@ -23,8 +23,18 @@
 	
 	 <bean name="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">    
     		<!-- 上传图片最大大小5M -->   
-    		<property name="maxUploadSize" value="5242440"></property>    
+    		<property name="maxUploadSize" value="20971520"></property>    
 	</bean>   
+	<!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->   
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">   
+        <property name="exceptionMappings">   
+            <props>   
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到/WEB-INF/jsp/error/error.jsp页面 -->   
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error/error</prop>   
+            </props>   
+        </property>   
+    </bean>  
+	
 	
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>

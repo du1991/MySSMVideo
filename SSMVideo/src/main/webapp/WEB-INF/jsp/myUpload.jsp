@@ -23,7 +23,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 </head>
   <body>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
 	<div class="container-fluid">
 		<div class="navbar-header">
 			<button type="button" class="navbar-toggle collapsed"
@@ -360,16 +360,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	</div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-			<div class="show-top-grids" style="width:100%;height:100%;">
-									
-						<c:forEach items="${map['mappingMovies'] }" var="ss">
+			<div class="show-top-grids" style="width:100%;height:100%;">			
+						<c:forEach items="${movies }" var="ss">
 							<div style="width:20%;height:100%;padding:10px;float:left">
 							<div style="width:90%;">
 								<div class="resent-grid-img recommended-grid-img">
 									<a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
 						runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
-						&publishtime=${ss.publishtime}">
-									<img src="${ss.moviepicture }" alt="" style="width:100%" />
+						&publishtime=${ss.publishtime}&upload=1">
+									<img src="${ss.moviepicture }" height="200" width="200"  />
 									</a>
 									<div class="time small-time show-time">
 										<p>${ss.runningtime }</p>
@@ -386,63 +385,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							</div>
 							</div>	
 							</c:forEach>
-							<div class="clearfix"> </div>
-							<script type="text/javascript">
-								function skip(){	var a;
-								a=parseInt($("#pagein").val());
-								if($("#pagein").val()==""){
-									a=1;
-								}
-								$("#pageskip").attr("href","/showmovie?page="+a+"&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}");
-								}
-							</script>
-							
-							<div style="width:40%;height:300px;text-align:center;margin-left:50%">
-								<c:if test="${fn:length(map['mappingMovies'])>6 }">
-								<span>共<input style="width:30px" type="text" value="${map['pages'] } 页"><input style="width:40px" type="text" value="${map['count'] } 条"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<span><a href="/showsport?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}
-								&movietypehead=${map['movietypehead']}"><button >上一页</button></a></span>
-								${map['bar'] }
-								<span><a href="/showsport?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >下一页</button></a></span>
-								&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="pagein" type="text" style="width:40px"><a id="pageskip" ><button onclick="skip()">GO</button></a></span>		
-								</c:if>
-							</div>	
-							<c:if test="${fn:length(map['mappingMovies'])<6 }">
+							<div class="clearfix"> </div>																			
 								<div style="width:40%;height:300px;text-align:center;margin-left:50%">
-								<span>共<input style="width:30px" type="text" value="${map['pages'] } 页"><input style="width:40px" type="text" value="${map['count'] } 条"></span>&nbsp;&nbsp;&nbsp;&nbsp;
-								<span><a href="/showsport?page=${map['nowPage']-1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >上一页</button></a></span>
-								${map['bar'] }
-								<span><a href="/showsport?page=${map['nowPage']+1 }&movietypedetail=${map['movietypedetail']}&movietypehead=${map['movietypehead']}"><button >下一页</button></a></span>
-								&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="pagein" type="text" style="width:40px"><a id="pageskip" ><button onclick="skip()">GO</button></a></span>		
 								</div>	
-							</c:if>								
+												
 				<div class="clearfix"> </div>
 			</div>
-			<!-- footer -->
-			<div class="footer" style="bottom:0px">
-			<div class="footer-grids">
-				<div class="footer-top">
-					<div class="footer-top-nav">
-						<ul>
-							<li><a href="about.html">关于</a></li>
-							<li><a href="copyright.html">版权</a></li>
-							<li><a href="#">广告</a></li>
-							<li><a href="developers.html">开发者</a></li>
-						</ul>
-					</div>
-					<div class="footer-bottom-nav">
-						<ul>
-							<li><a href="terms.html">Terms</a></li>
-							<li><a href="privacy.html">Privacy</a></li>
-							<li><a href="#small-dialog4"
-								class="play-icon popup-with-zoom-anim">Send feedback</a></li>
-							<li><a href="privacy.html">Policy & Safety </a></li>
-							<li><a href="try.html">Try something new!</a></li>
-						</ul>
-					</div>
-				</div>
-			</div>
 		</div>		
-		</div>	
+		
   </body>
 </html>

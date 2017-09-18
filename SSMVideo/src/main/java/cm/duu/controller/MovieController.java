@@ -2,6 +2,9 @@ package cm.duu.controller;
 
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,12 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import cm.duu.entity.Movie;
+import cm.duu.entity.User;
 import cm.duu.service.MovieService;
+import cm.duu.service.UserService;
 
 @Controller
 public class MovieController {
 	@Autowired
 	private MovieService movieService;
+	@Autowired
+	private UserService serService;
 	
 	@RequestMapping("/search")
 	public ModelAndView showSearch(@ModelAttribute("movie") Movie movie){
@@ -41,12 +48,13 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/showTV")
-	public ModelAndView showTv(@ModelAttribute("movie") Movie movie,@RequestParam("page") Integer nowpage){
+	public ModelAndView showTv(@ModelAttribute("movie") Movie movie,@RequestParam("page") Integer nowpage){		
 		return new ModelAndView("TV","map",movieService.queryMoviesByPage(movie, nowpage));
+		
 	}
 	
 	@RequestMapping("/shownews")
-	public ModelAndView showNews(@ModelAttribute("movie") Movie movie,@RequestParam("page") Integer nowpage){
+	public ModelAndView showNews(@ModelAttribute("movie") Movie movie,@RequestParam("page") Integer nowpage){		
 		return new ModelAndView("news","map",movieService.queryMoviesByPage(movie, nowpage));
 	}
 	
@@ -63,10 +71,13 @@ public class MovieController {
 	}
 	
 	@RequestMapping("/single")
-	public ModelAndView showSingle(@ModelAttribute("movie") Movie movie){
+	public ModelAndView showSingle(@ModelAttribute("movie") Movie movie,@RequestParam(value="upload",required=false)String isuploadornot,
+			HttpServletRequest request){
 		Map<String,Object> map=new HashMap<String,Object>();
 		map.put("singlemovie",movie);
 		map.put("rightmovies",movieService.queryByType(movie));
+		map.put("isuploadornot", isuploadornot);
+		map.put("uploadmovies", movieService.queryMoviesForUserUploadLimitFive((User)(request.getSession().getAttribute("sessionuser"))));
 		return new ModelAndView("SingleMovie","mv",map);
 	}
 	

@@ -3,12 +3,20 @@
 <mapper namespace="cm.duu.dao.MovieDao">
 	
 	<insert id="addMovie"  parameterType="Movie" >
-		insert into movies (moviename,movieurl) values (#{moviename},#{movieurl})
+		insert into movies (moviename,movieurl,runningtime,moviepicture,introduction
+		,publisher,movietypehead,movietypedetail,publishtime,username) values (#{moviename},#{movieurl}
+		,#{runningtime},#{moviepicture},#{introduction},#{publisher},#{movietypehead},#{movietypedetail}
+		,#{publishtime},#{username})
 	</insert>
 	
 	<select id="queryMovies" parameterType="Movie" resultType="Movie" >
 		select * from movies where movietypedetail = #{movietypedetail}
 	</select>
+	
+	<select id="queryMoviesForUserUpload" resultType="Movie" >
+		select * from movies where username = #{username}
+	</select>
+	
 	
 	<!--分页： 查询不同类型电影的总条数 -->
 	<select id="queryByType" parameterType="Movie" resultType="java.lang.Integer" >

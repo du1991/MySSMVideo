@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import cm.duu.entity.Movie;
 import cm.duu.entity.User;
 import cm.duu.service.MovieService;
 import cm.duu.service.UserService;
@@ -23,6 +25,14 @@ import cm.duu.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MovieService movieService;
+	
+	@RequestMapping("/myUpload")
+	public ModelAndView myUpload(HttpServletRequest request){
+		return new ModelAndView("myUpload","movies",movieService.queryMoviesForUserUpload((User)(request.getSession().getAttribute("sessionuser"))));
+	}
+	
 	
 	@RequestMapping("/logout")
 	public String logout(HttpServletRequest request){
@@ -43,17 +53,23 @@ public class UserController {
 	}
 	
 	@RequestMapping("/uploadfile")  
-	public String upload(@RequestParam("file") MultipartFile file,HttpServletRequest request) throws IOException{  
-        String path = request.getSession().getServletContext().getRealPath("upload");  
-        System.out.println(path);
+	public ModelAndView upload(@RequestParam("file") MultipartFile file,HttpServletRequest request,@
+			ModelAttribute("movie") Movie movie) throws IOException{  
+//        String path = request.getSession().getServletContext().getRealPath("upload");  
+      
         String fileName = file.getOriginalFilename(); 
-        System.out.println(fileName);
-        File dir = new File(path,fileName);          
+       
+        File dir = new File("D:/tomcat9/webapps/uplo",fileName);          
         if(!dir.exists()){  
             dir.mkdirs();  
         }  
         file.transferTo(dir);  
-        return "ko";  
+       
+        movie.setUsername(((User)(request.getSession().getAttribute("sessionuser"))).getUsername());
+        movie.setMovieurl("../uplo/"+file.getOriginalFilename());
+        movie.setMoviename(file.getOriginalFilename());
+        movieService.addMovie(movie,request);
+        return new ModelAndView("upload","su",true);  
     }  
 	
 	

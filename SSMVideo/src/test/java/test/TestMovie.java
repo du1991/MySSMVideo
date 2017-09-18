@@ -25,11 +25,13 @@ public class TestMovie {
 	
 	@Test
 	public void addMovie(){
-		List<Movie> a=movieService.queryMoivesForSearch("9");
+		User a=new User();
+		a.setUsername("tom");
+		List<Movie> queryMoviesForUserUpload = movieService.queryMoviesForUserUpload(a);
+		queryMoviesForUserUpload.forEach(x->System.out.println(x));
 		
 		
 		
-		a.forEach((x)->System.out.println(x));
 
 	}
 	

@@ -12,6 +12,9 @@ public class Movie {
 	private String movietypehead;
 	private String movietypedetail;
 	private String publishtime;
+	private String username;
+	
+	
 	
 	public Movie(){}
 	public Movie(String movietypedetail) {
@@ -81,6 +84,12 @@ public class Movie {
 	@Override
 	public String toString() {
 		return "Movie [id=" + id + ", moviename=" + moviename + ", movieurl=" + movieurl + "]";
+	}
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	
