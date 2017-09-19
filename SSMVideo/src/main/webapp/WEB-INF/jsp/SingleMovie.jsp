@@ -60,8 +60,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>				
 				<div class="signin">
 					<c:if test="${empty sessionScope}">
-					<a href="#small-dialog2" class="play-icon popup-with-zoom-anim" id="register">注册</a>
-					</c:if>
+<a href="regist1"  id="register">注册</a>					</c:if>
 					<c:if test="${!empty sessionScope}">
 					<a  id="loginout" href="logout">退出</a>
 					</c:if>
@@ -250,6 +249,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 					
 								function login() {
+								var a=$("#id").val();
+								var b=$("#moviename").val();
+								var c=$("#movieurl").val();
+								var d=$("#runningtime").val();
+								var e=$("#introduction").val();
+								var f=$("#publisher").val();
+								var g=$("#movietypehead").val();
+								var h=$("#movietypedetail").val();
+								var i=$("#publishtime").val();
+						
+								
 											$.ajax({
 												url : "/login",
 												dataType : "json",
@@ -259,7 +269,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 												},
 												success : function(result) {
 													if (result.tr) {
-														window.location="/home";
+														
+														window.location="/single?id="+a+"&moviename="+b+"&movieurl="+c+"&runningtime="+d+"&introduction="+e+"&publisher="+f+"&movietypehead="+g+"&movietypedetail="+h+"&publishtime="+i
+													
 													} else {
 														$("#error").html("用户或者密码错误！").show();
 													}
@@ -363,6 +375,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="col-sm-8 single-left">
 					<div class="song"  style="width:100%">
 						<div class="song-info">
+						<!-- 详情页面在登录成功时，ajax跳转需要传递的参数 -->
+						
+						<input style="display:none" id="id" value="${mv['singlemovie'].id }" />		
+						<input style="display:none" id="moviename" value="${mv['singlemovie'].moviename }" />
+						<input style="display:none" id="movieurl" value="${mv['singlemovie'].movieurl }" />
+						<input style="display:none" id="runningtime" value="${mv['singlemovie'].runningtime }" />
+						<input style="display:none" id="introduction" value="${mv['singlemovie'].introduction }" />
+						<input style="display:none" id="publisher" value="${mv['singlemovie'].publisher }" />
+						<input style="display:none" id="movietypehead" value="${mv['singlemovie'].movietypehead }" />
+						<input style="display:none" id="movietypedetail" value="${mv['singlemovie'].movietypedetail }" />
+						<input style="display:none" id="publishtime" value="${mv['singlemovie'].publishtime }" />
+						
 							<h3>${mv['singlemovie'].moviename }</h3>	
 						</div>
 						<div class="video-grid">
@@ -398,24 +422,79 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								</ul>
 							</div>
 					</div>
+					
+					<script type="text/javascript">
+					
+					
+					function show1() {
+						
+						
+						$.ajax({
+							url:"ContentController",
+							dataType : "json",
+							data : {		
+								"content":$("#p1").val(),
+								"moviename":$("#p2").val(),
+								"movieid":$("#p3").val(),
+							},
+							success : function(result) {
+								
+								$("#newcontent1").html(result.username+":"+result.content);
+								$("#newcontent2").html(result.contenttime);
+								
+								$("#divshow").show();
+							},
+							error : function() {
+								alert("error");
+							}
+						});
+			}							
+					
+					function show2(){
+						alert("请先登录！");
+					}
+					</script>
+					
 					<div class="all-comments">
 						<div class="all-comments-info">
-							<a href="#">All Comments (8,657)</a>
 							<div class="box">
-								<form>
-									<input type="text" placeholder="Name" required=" ">			           					   
-									<input type="text" placeholder="Email" required=" ">
-									<input type="text" placeholder="Phone" required=" ">
-									<textarea placeholder="Message" required=" "></textarea>
-									<input type="submit" value="SEND">
+								
+					
+									<textarea placeholder="Message"  name ="content" id="p1"></textarea> 
+										<input type="text" value="${mv['singlemovie'].moviename }"  name="moviename" style="display: none" id="p2"/>
+										<input type="text" value="${mv['singlemovie'].id }"  name="movieid" style="display: none" id="p3"/>
+
+										<!-- 差session -->
+										
+					<c:if test="${!empty sessionScope}">					
+					<input type="submit" onclick="show1()"  value="提交">
+					</c:if>
+					<c:if test="${empty sessionScope}">			
+					<input type="submit" onclick="show2()"  value="提k交">
+					</c:if>
+										
+										
 									<div class="clearfix"> </div>
-								</form>
+							
 							</div>
+							
+						
+						 	<div style="width:100%;">
+						 					<div style="border:solid;height:60px;display:none;" id="divshow">
+						 					<p id="ssssss"></p>
+												<p id="newcontent1"></p><p style="text-align:right" id="newcontent2"></p>
+											</div>
+											<c:forEach items="${mv['contents'] }" var="ss">							
+												<div style="border:solid">
+												<p><br/>${ss.username}: ${ss.content}</p><p style="text-align:right">${ss.contenttime}</p>
+												</div>
+											</c:forEach>
+							</div> 
+							
+							
 							<div class="all-comments-buttons">
 								<ul>
-									<li><a href="#" class="top">Top Comments</a></li>
-									<li><a href="#" class="top newest">Newest First</a></li>
-									<li><a href="#" class="top my-comment">My Comments</a></li>
+									<li><a href="#" class="top">返回顶部</a></li>
 								</ul>
 							</div>
 						</div>						

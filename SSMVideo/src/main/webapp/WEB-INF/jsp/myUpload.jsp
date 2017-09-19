@@ -368,7 +368,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
 						runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
 						&publishtime=${ss.publishtime}&upload=1">
-									<img src="${ss.moviepicture }" height="200" width="200"  />
+									<video  width="100px" height="200px" controls>
+  								<source  src="${ss.movieurl }" type="video/mp4">
+				            </video> 
 									</a>
 									<div class="time small-time show-time">
 										<p>${ss.runningtime }</p>

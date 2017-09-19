@@ -4,4 +4,12 @@
 	<select id="queryUserByName" parameterType="cm.duu.entity.User" resultType="cm.duu.entity.User" >
 		select * from users where username = #{username} and password=#{password}
 	</select>
+	
+	<select id="queryUser" resultType="cm.duu.entity.User">
+		select * from users 
+	</select>
+	
+	<insert id="insertUser" parameterType="cm.duu.entity.User">
+		insert into users(username,password) values(#{username},#{password})
+	</insert>
 </mapper>

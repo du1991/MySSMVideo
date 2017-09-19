@@ -66,7 +66,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>				
 				<div class="signin">
 					<c:if test="${empty sessionScope}">
-					<a href="#small-dialog2" class="play-icon popup-with-zoom-anim" id="register">注册</a>
+					<a href="regist1"  id="register">注册</a>
 					</c:if>
 					<c:if test="${!empty sessionScope}">
 					<a  id="loginout" href="logout">退出</a>

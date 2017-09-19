@@ -5,8 +5,23 @@ public class Content {
 	private int id;
 	private String username;
 	private String moviename;
+	private int movieid;
 	private String content;
+	private String contenttime;
 	
+	
+	public String getContenttime() {
+		return contenttime;
+	}
+	public void setContenttime(String contenttime) {
+		this.contenttime = contenttime;
+	}
+	public int getMovieid() {
+		return movieid;
+	}
+	public void setMovieid(int movieid) {
+		this.movieid = movieid;
+	}
 	public int getId() {
 		return id;
 	}

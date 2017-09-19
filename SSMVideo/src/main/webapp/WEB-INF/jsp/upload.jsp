@@ -331,20 +331,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		     var postfix = /\.[^\.]+/.exec(name);//获取文件的后缀
 		     var text =name.substr(0,postfix['index']);//参考网址：http://www.jb51.net/article/66470.htm
 
-			$("#moviename").val(text);
+			$("#moviena").val(text);
 		}
 	</script>
 	
-	<div style="padding-top: 50px; padding-left: 200px; height: calc(100% - 208px); position: relative; top: 86px; text-align: left; font-size: 22px; background: url(/images/sss.jpg) no-repeat 60% 30%; background-size: cover">
-		<form action="uploadfile" method="post" enctype="multipart/form-data">
-			<input type="file" name="file" onchange="handleFile()" id="fileload">
-			
-			<p>
-				视频时长:<input id="runningtime" name="runningtime"  type="text" />
-			</p>
-			<p>
-				视频导演:<input id="publisher" name="publisher" type="text" />
-			</p>
+<div  style="padding-top:50px;padding-left:200px;height:calc(100% - 208px);position:relative;top:86px;text-align:left;font-size:22px
+		;background:url(/images/biz2.jpg) no-repeat 60% 30%;background-size:cover" >
+				<form action="uploadfile" method="post" enctype="multipart/form-data">
+				
+				<input type="file" name="file" onchange="handleFile()" id="fileload" style="color: transparent;float:none;margin-left:100px;font-size:20px
+				;width:80px" />
+				
 			<p>
 				主要类型:<select name="movietypehead">
 					<option>movie</option>
@@ -372,6 +369,16 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</select>
 
 			</p>
+			<p>
+				视频名字:<input id="moviena" name="moviename"  type="text" />
+			</p>
+			<p>
+				视频时长:<input id="runningtime" name="runningtime"  type="text" />
+			</p>
+			<p>
+				视频导演:<input id="publisher" name="publisher" type="text" />
+			</p>
+			
 			<p>
 				电影图片:<input id="picture" type="text" />
 			</p>

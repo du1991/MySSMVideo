@@ -1,7 +1,7 @@
 package cm.duu.service.impl;
 
-
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.servlet.http.HttpSession;
 
@@ -16,21 +16,35 @@ import cm.duu.service.UserService;
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDao userDao;
-	
-	public Map<String,Object> queryUserByName(User user,HttpSession session) {
-		Map<String,Object> map=new HashMap<String,Object>();
-		 if(userDao.queryUserByName(user)!=null){
-			 map.put("tr", true);		
-			 session.setAttribute("sessionuser", userDao.queryUserByName(user));
-			 map.put("user", userDao.queryUserByName(user).getUsername());
-			 return map;
-		 }
-		 map.put("fa", false);
-		 return map;
+
+	public Map<String, Object> queryUserByName(User user, HttpSession session) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if (userDao.queryUserByName(user) != null) {
+			map.put("tr", true);
+			session.setAttribute("sessionuser", userDao.queryUserByName(user));
+			map.put("user", userDao.queryUserByName(user).getUsername());
+			return map;
+		}
+		map.put("fa", false);
+		return map;
 	}
-	
+
 	public void delSession(HttpSession session) {
 		session.removeAttribute("sessionuser");
+	}
+
+	public void registUser(String username, String password) {
+
+		User user = new User();
+		user.setUsername(username);
+		user.setPassword(password);
+		userDao.insertUser(user);
+
+	}
+
+	public List<User> queryUser() {
+		List<User> list = userDao.queryUser();
+		return list;
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cm.duu.entity.Movie;
 import cm.duu.entity.User;
+import cm.duu.service.ContentService;
 import cm.duu.service.MovieService;
 import cm.duu.service.UserService;
 
@@ -26,6 +27,8 @@ public class MovieController {
 	private MovieService movieService;
 	@Autowired
 	private UserService serService;
+	@Autowired
+	private ContentService contentService;
 	
 	@RequestMapping("/search")
 	public ModelAndView showSearch(@ModelAttribute("movie") Movie movie){
@@ -78,6 +81,9 @@ public class MovieController {
 		map.put("rightmovies",movieService.queryByType(movie));
 		map.put("isuploadornot", isuploadornot);
 		map.put("uploadmovies", movieService.queryMoviesForUserUploadLimitFive((User)(request.getSession().getAttribute("sessionuser"))));
+		
+		map.put("contents", contentService.queryByMovie(movie.getId()));
+		
 		return new ModelAndView("SingleMovie","mv",map);
 	}
 	

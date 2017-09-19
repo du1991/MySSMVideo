@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cm.duu.dao.ContentDao">
+
+<select id="queryByMovie"  resultType="cm.duu.entity.Content">
+
+select * from  contents where  movieid = #{movieid} order by contenttime desc
+
+</select>
+
+<select id="queryOneForJustNow" resultType="cm.duu.entity.Content">
+	select * from contents order by contenttime desc limit 1  
+</select>
+<insert id="addByText"  parameterType="cm.duu.entity.Content"  >
+
+
+insert into contents (username,moviename,movieid,content) values 
+ (#{username},#{moviename},#{movieid},#{content})
+
+
+</insert>
+
+	</mapper>
