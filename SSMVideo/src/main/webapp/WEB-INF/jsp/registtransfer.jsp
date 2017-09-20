@@ -10,14 +10,14 @@
 <link rel="stylesheet" type="text/css" href="css/register.css" />
 <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 <script src="js/jquery-3.2.1.js" type="text/javascript" charset="utf-8"></script>
-	<script type="text/javascript">
-		var time = 10;
-		function returnUrlByTime() {
-			window.setTimeout('returnUrlByTime()', 1000);
-			time = time - 1;
-			document.getElementById("layer").innerHTML = time;
-		}
-	</script>
+<script type="text/javascript">
+	var time = 10;
+	function returnUrlByTime() {
+		window.setTimeout('returnUrlByTime()', 1000);
+		time = time - 1;
+		document.getElementById("layer").innerHTML = time;
+	}
+</script>
 </head>
 <body onload="returnUrlByTime()" style="height: 100%">
 	<header>
@@ -27,8 +27,12 @@
 			</h1>
 		</a>
 		<div class="desc">
-			<a href="/home"><span >.......注册成功！请点击跳转,<span id="layer"><%  response.setHeader("Refresh", "9;URL=home");  %>  </span>秒之后将自动跳转主页......</span></a>
-			
+			<a href="/home"><span>.......注册成功！请点击跳转,<span id="layer">
+						<%
+							response.setHeader("Refresh", "9;URL=home");
+						%>
+				</span>秒之后将自动跳转主页......
+			</span></a>
 		</div>
 	</header>
 	<div
