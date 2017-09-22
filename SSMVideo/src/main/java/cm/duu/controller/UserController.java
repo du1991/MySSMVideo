@@ -31,81 +31,77 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private MovieService movieService;
-	@Autowired
-	private UserDao userDao;
-	
-	@RequestMapping(value = "/doregist", method = RequestMethod.POST)
-	public String registUserController(@ModelAttribute("user") User user, HttpServletRequest request,
-			HttpServletResponse response) {
-		int count = 0;
-		List<User> list = userDao.queryUser();
-		for (User u : list) {
-			if (u.getUsername().equals(user.getUsername())) {
-				request.setAttribute("msg", "该用户名已经存在!");
-				count++;
-				return "regist";
-			}
-		}
-		if (count == 0) {
-			String username = request.getParameter("username");
-			String password = request.getParameter("password");
-			userService.registUser(username, password);
-			return "redirect:registtransfer";
-		}
-		return null;
-	}
-	
-	@RequestMapping("/registtransfer")
-	public String transfer(){
-		return "registtransfer";
-	}
-	
+
+	// 主页跳转注册页面
 	@RequestMapping("/regist1")
 	public ModelAndView regist() {
 		return new ModelAndView("regist", "username", userService.queryUser());
 	}
 	
-	@RequestMapping("/myUpload")
-	public ModelAndView myUpload(HttpServletRequest request){
-		return new ModelAndView("myUpload","movies",movieService.queryMoviesForUserUpload((User)(request.getSession().getAttribute("sessionuser"))));
+	//ajax验证注册用户名
+	@RequestMapping("/registValidate")
+	@ResponseBody
+	public Object registValidate(){	
+		return new Gson().toJson(userService.queryUser()); 
 	}
 	
-	
+	// 注册插入用户
+	@RequestMapping(value = "/doregist", method = RequestMethod.POST)
+	public String registUserController(@ModelAttribute("user") User user) {
+		userService.registUser(user.getUsername(), user.getPassword());
+		return "redirect:registtransfer";
+	}
+
+	// 注册插入用户成功跳转中间页面
+	@RequestMapping("/registtransfer")
+	public String transfer() {
+		return "registtransfer";
+	}
+
+	// 退出
 	@RequestMapping("/logout")
-	public String logout(HttpServletRequest request){
+	public String logout(HttpServletRequest request) {
 		userService.delSession(request.getSession());
 		return "redirect:/home";
 	}
-	
+
+	// 登录
 	@RequestMapping("/login")
 	@ResponseBody
-	public Object login(@ModelAttribute("s") User user,
-			HttpServletRequest request){
-		return new Gson().toJson(userService.queryUserByName(user,request.getSession()));
+	public Object login(@ModelAttribute("s") User user, HttpServletRequest request) {
+		return new Gson().toJson(userService.queryUserByName(user, request.getSession()));
 	}
-	
+
+	// 主页跳转到上传页面
 	@RequestMapping("/upload")
-	public String upload(){
+	public String upload() {
 		return "upload";
 	}
-	
-	@RequestMapping("/uploadfile")  
-	public ModelAndView upload(@RequestParam("file") MultipartFile file,HttpServletRequest request,@
-			ModelAttribute("movie") Movie movie) throws IOException{  
-      
-        String fileName = file.getOriginalFilename(); 
-       
-        File dir = new File("/Users/rimi/tomcat9/webapps/uplo",fileName);          
-        if(!dir.exists()){  
-            dir.mkdirs();  
-        }  
-        file.transferTo(dir);  
-       
-        movie.setUsername(((User)(request.getSession().getAttribute("sessionuser"))).getUsername());
-        movie.setMovieurl("../uplo/"+file.getOriginalFilename());
-        movieService.addMovie(movie,request);
-        return new ModelAndView("upload","su",true);  
-    }  
-	
-	
+
+	// 上传页面点击提交按钮
+	@RequestMapping("/uploadfile")
+	public ModelAndView upload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
+			@ModelAttribute("movie") Movie movie) throws IOException {
+
+		String fileName = file.getOriginalFilename();
+
+		File dir = new File("/Users/rimi/tomcat9/webapps/uplo", fileName);
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+		file.transferTo(dir);
+
+		movie.setUsername(((User) (request.getSession().getAttribute("sessionuser"))).getUsername());
+		movie.setMovieurl("../uplo/" + file.getOriginalFilename());
+		movieService.addMovie(movie, request);
+		return new ModelAndView("upload", "su", true);
+	}
+
+	// 上传页面跳转至我的上传
+	@RequestMapping("/myUpload")
+	public ModelAndView myUpload(HttpServletRequest request) {
+		return new ModelAndView("myUpload", "movies",
+				movieService.queryMoviesForUserUpload((User) (request.getSession().getAttribute("sessionuser"))));
+	}
+
 }

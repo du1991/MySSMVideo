@@ -103,17 +103,12 @@
 							<div class="social-sits">
 								<img src="/images/gm1.jpg">
 							</div>
-							<div class="signup">
-								<p id=error style="color: red; height: 20px"></p>
-								<input type="text" class="email" id="username"
-									placeholder="Enter email / mobile" required="required"
-									pattern="([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?" name="username" />
-								<input type="password" placeholder="Password"
-									required="required" id="password" pattern=".{6,}"
-									title="Minimum 6 characters required" autocomplete="off"
-									name="password" /> <input type="button" value="登录"
-									onclick="login()" id="login" />
-							</div>
+						<div class="signup">
+							<p id=error style="color: red; height: 20px"></p>
+							<input type="text" class="email" id="username" name="username" />
+							<input type="password" id="password" name="password" /> 
+							<input type="button" value="登录" onclick="login()" id="login" />
+						</div>
 							<div class="clearfix"></div>
 						</div>
 					</div>

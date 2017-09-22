@@ -1,7 +1,5 @@
 $(function(){
 	
-	var stuList = getStuList();//设置传送信息：学生的集合
-	
 	//聚焦失焦input
 	$('input').eq(0).focus(function(){
 		if($(this).val().length==0){
@@ -39,16 +37,31 @@ $(function(){
 		}else if($(this).val().length>=4&& !isNaN($(this).val())){
 			$(this).parent().next("div").text("用户名不能为纯数字");
 			$(this).parent().next("div").css("color",'red');
-		}else{
-			for(var m=0;m<stuList.length;m++){
-				if($(this).val()==stuList[m].name){
-					$(this).parent().next("div").text("该用户名已被注册");
-					$(this).parent().next("div").css("color",'red');
-					return;
-				}				
+		}
+		else{
+		var a = $(this).val();
+		$.ajax({
+			url : "/registValidate",
+			dataType : "json",
+			
+			
+			success : function(result) {
+				for(var i=0;i<result.length;i++){
+					if(a==result[i].username){
+						$("#username_msg").text("该用户名已被注册");
+						$("#username_msg").css("color",'red');
+						return;
+					}
+				}
+				$("#username_msg").text("");
+				
+			},
+			error : function() {
+				alert("error");
 			}
-			$(this).parent().next("div").text("");
-		}	
+		});
+		}
+		
 	})
 	
 	//密码
@@ -80,18 +93,20 @@ $(function(){
 		var str="qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPLKJHGFDSAZXCVBNM";
 		var str1=0;
 		for(var i=0; i<5;i++){
-			str1+=str.charAt(Math.floor(Math.random()*62)) 
+			str1+=str.charAt(Math.floor(Math.random()*62));
 		}
-		str1=str1.substring(1)
+		str1=str1.substring(1);
 		$("#code").text(str1);
 	}
 	code();
+	
+	
 	$("#code").click(code);	
 	
 	//	验证码验证
 	$('input').eq(3).blur(function(){
 		if($(this).val().length==0){
-			$(this).parent().next("div").text("");
+			$(this).parent().next().next("div").text("");
 		}else if($(this).val().toUpperCase()!=$("#code").text().toUpperCase()){
 			$(this).parent().next().next("div").text("验证码不正确");
 			$(this).parent().next().next("div").css("color",'red');
@@ -136,23 +151,11 @@ $(function(){
 			e.preventDefault();
 			return;
 		}
+		//名字重复不能提交
+		if($("#username_msg").text()!=null){
+			e.preventDefault();
+			return;
+		}
 	})
-		
-//  建立构造函数，构造学生信息模板
-	function Student(name,password,tel,id){
-         this.name = name;
-         this.password = password;
-         this.tel = tel;
-         this.id = id;
-     }
-//	获取之前所有已经注册的用户集合
-	function getStuList(){
-	    var list = localStorage.getItem('username');
-	    if(list != null){
-	        return JSON.parse(list);
-	    }else{
-	        return new Array();
-	    }
-	}
 
 })
