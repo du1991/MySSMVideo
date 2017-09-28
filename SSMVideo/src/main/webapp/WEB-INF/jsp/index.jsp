@@ -12,47 +12,47 @@
 <link href="css/dashboard.css" rel="stylesheet">
 <link href="css/style.css" rel='stylesheet' type='text/css' media="all" />
 <script src="js/jquery-1.11.1.min.js"></script>
+<script src="/js/ZoomPic.js"></script>
+
+<style>
+#focus_Box{position:relative;width:710px;height:200px;margin:150px auto;margin-top: 60px}
+#focus_Box ul{position:relative;width:100px;height:200px}
+#focus_Box li img{width:100%;background:url(images/loading.gif) no-repeat center 50%;height:100%;vertical-align:top}
+#focus_Box li{z-index:0;position:absolute; width:0px;height:0px;top:146px;cursor:pointer;left:377px;border-radius:4px;}
+#focus_Box li p span{display:inline-block;width:20%;height:40px;overflow:hidden;}
+#focus_Box .prev,#focus_Box .next{display:block;z-index:100;overflow:hidden;cursor:pointer;position:absolute;width:52px;height:52px;top:131px;}
+#focus_Box .prev{background:url(/images/lunbo.png) left bottom no-repeat;left:10px}
+#focus_Box .next{background:url(/images/lunbo.png) right bottom no-repeat;right:0px} 
+</style>
+
 </head>
 
 <body>
 	<%@ include file="/WEB-INF/jsp/includes/headinclude.jsp"%>
 	<%@ include file="/WEB-INF/jsp/includes/leftinlcude.jsp"%>
+	
+	
 	<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 		<div class="main-grids">
-			<div class="top-grids">
-				<div class="recommended-info">
-					<h3>热门</h3>
-				</div>
-				<c:forEach items="${movies['hot']}" var="ss">
-					<div class="col-md-4 resent-grid recommended-grid slider-top-grids">
-						<div class="resent-grid-img recommended-grid-img">
-							<a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
-								runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}
-								&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
-								&publishtime=${ss.publishtime}">
-								<img src="${ss.moviepicture }" /></a>
-							<div class="time">
-								<p>${ss.runningtime }</p>
-							</div>
-							<div class="clck">
-								<span class="glyphicon glyphicon-time" aria-hidden="true"></span>
-							</div>
-						</div>
-						<div class="resent-grid-info recommended-grid-info">
-							<h3>
-								<a class="title title-info">${ss.moviename}:${ss.introduction }</a>
-							</h3>
-							<ul>
-								<li><p class="author author-info">
-										<a href="#" class="author">${ss.publisher }</a>
-									</p></li>
-								<li class="right-list"><p class="views views-info">0次数</p></li>
-							</ul>
-						</div>
-					</div>
-				</c:forEach>
-				<div class="clearfix"></div>
-			</div>
+			
+			<div id="focus_Box">
+							<span class="prev" >&nbsp;</span>
+							<span class="next" >&nbsp;</span>    
+			             <c:forEach items="${movies['hot']}" var="ss">
+			            <ul>
+		                    <li>
+						               <a href="/single?id=${ss.id }&moviename=${ss.moviename}&movieurl=${ss.movieurl}&
+										runningtime=${ss.runningtime }&introduction=${ss.introduction}&publisher=${ss.publisher}
+										&movietypehead=${ss.movietypehead}&movietypedetail=${ss.movietypedetail}
+										&publishtime=${ss.publishtime}">
+										<img src="${ss.moviepicture }" /></a>
+							</li>
+						   </ul>
+						    </c:forEach>
+						      
+						    </div>
+	
+			
 			<div class="recommended">
 				<div class="recommended-grids">
 					<div class="recommended-info">

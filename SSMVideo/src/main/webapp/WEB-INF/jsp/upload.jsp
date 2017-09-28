@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@	taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html style="height: 100%;">
+<html >
 
 <head>
 <title>Home</title>
@@ -16,8 +16,10 @@
 <script src="js/jquery-1.11.1.min.js"></script>
 </head>
 
-<body style="height: 100%; padding: 0">
-	<nav class="navbar navbar-inverse navbar-fixed-top">
+<body >
+<div style="height: 800px">
+
+	 <nav class="navbar navbar-inverse navbar-fixed-top " role="navigation" style="height: 10%;opacity:0.8;" >
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="/home"><h1>
@@ -103,12 +105,12 @@
 							<div class="social-sits">
 								<img src="/images/gm1.jpg">
 							</div>
-						<div class="signup">
-							<p id=error style="color: red; height: 20px"></p>
-							<input type="text" class="email" id="username" name="username" />
-							<input type="password" id="password" name="password" /> 
-							<input type="button" value="登录" onclick="login()" id="login" />
-						</div>
+							<div class="signup">
+								<p id=error style="color: red; height: 20px"></p>
+								<input type="text" class="email" id="username" name="username" />
+								<input type="password" id="password" name="password" /> 
+								<input type="button" value="登录" onclick="login()" id="login" />
+							</div>
 							<div class="clearfix"></div>
 						</div>
 					</div>
@@ -118,87 +120,161 @@
 			<div class="clearfix"></div>
 		</div>
 	</nav>
-	<script type="text/javascript">
+	<!-- <script type="text/javascript">
 		function handleFile(){
-			 var reg = /[^\\\/]*[\\\/]+/g; //匹配文件的名称和后缀的正则表达式
-		     var name = $("#fileload").val().replace(reg, '');
-		     var postfix = /\.[^\.]+/.exec(name);//获取文件的后缀
-		     var text =name.substr(0,postfix['index']);//参考网址：http://www.jb51.net/article/66470.htm
-			$("#moviena").val(text);
+			
 		}
-	</script>
-<div  style="padding-top:50px;padding-left:200px;height:calc(100% - 208px);position:relative;top:86px;text-align:left;font-size:22px
-		;background:url(/images/biz2.jpg) no-repeat 60% 30%;background-size:cover" >
-				<form action="uploadfile" method="post" enctype="multipart/form-data">
-				<input type="file" name="file" onchange="handleFile()" id="fileload" style="color: transparent;float:none;margin-left:100px;font-size:20px
-				;width:80px" />
-			<p>
-				主要类型:<select name="movietypehead">
-					<option>movie</option>
-					<option>sport</option>
-					<option>MV</option>
-					<option>TV</option>
-					<option>news</option>
-				</select>
-			</p>
-			<p>
-				详细类型: <select name="movietypedetail">
-					<option>comedy</option>
-					<option>hot</option>
-					<option>science</option>
-					<option>sport</option>
-					<option>football</option>
-					<option>basketball</option>
-					<option>badminton</option>
-					<option>pingpong</option>
-					<option>action</option>
-					<option>horrible</option>
-					<option>news</option>
-					<option>MV</option>
-					<option>TV</option>
-				</select>
-			</p>
-			<p>
-				视频名字:<input id="moviena" name="moviename"  type="text" />
-			</p>
-			<p>
-				视频时长:<input id="runningtime" name="runningtime"  type="text" />
-			</p>
-			<p>
-				视频导演:<input id="publisher" name="publisher" type="text" />
-			</p>
-			<p>
-				电影图片:<input id="picture" type="text" />
-			</p>
-			<p >电影描述</p>
-			<textarea name="introduction"></textarea>
-			<p>
-				<input type="submit" value="上传">
-			</p>
-		</form>
-	</div>
-	<div class="footer"
-		style="height: 122px; position: relative; top: 86px">
-		<div class="container">
-			<div class="footer-top">
-				<div class="footer-top-nav">
-				<ul>
-					<li><a href="#">关于</a></li>
-					<li><a href="#">版权</a></li>
-					<li><a href="#">广告</a></li>
-					<li><a href="#">开发者</a></li>
-				</ul>
-			</div>
-			<div class="footer-bottom-nav">
-				<ul>
-					<li><a href="#">Terms</a></li>
-					<li><a href="#">Privacy</a></li>
-					<li><a href="#">Policy & Safety </a></li>
-					<li><a href="#">Try something new!</a></li>
-				</ul>
-			</div>
-			</div>
+	</script> -->
+		<!--中间板块  -->
+		<div  style="margin-top: 100px;background:url(/images/bizi.jpg) no-repeat 60% 30%;background-size:cover;height: 85%" >
+		    <div  style="padding-left: 20%;padding-top: 50px">
+		    
+		            <div class="form-group "  style="font-size: 15px">
+		            <p>	
+		           <c:if test="${success=='1'}">
+		            <script type="text/javascript">
+		            		$(function(){
+		            				alert("上传成功");
+		            		})
+		            </script>
+					</c:if>
+						</p>
+		            	<form  action="uploadfile" method="post" enctype="multipart/form-data" >		           		
+		            		<div style="height:20px;width:400px;background-color:white"><div id="progress" style="height:100%;width:1px;background-color:green;"></div></div>	            
+		            		<div id="progressbar"> 0%</div>
+		            		<p>
+							<input type="text" disabled="disabled" value="请选择视频文件" id="fileName" style=" color: #CCCCCC; ">
+							<input type="file" name="file" onchange="handleFile()" id="filemovie" style="color: transparent;float:none;font-size:20px;width:100px" /> 
+						</p>                     	
+                       	<p >视频名称：
+                       	  <input id="url" name="moviename" type="text" style="height:30px;width:200px;font-size: 13px;color: #ADADAD ;" maxlength="10" class="inputstyle keywords form-control" />
+                       	</p>                     	
+                      	<p>
+						      <label >主要类型：</label>
+					       		     <select onchange="chg1();" id="province" name="movietypehead">
+											
+											<option value="0" >电影</option>
+											<option value="1">体育</option>
+											<option value="2" selected="selected">MV</option>
+											<option value="3"  >TV</option>
+											<option value="4">新闻</option>
+									</select>
+						</p>
+						<p >
+						     <label >详细类型：</label>
+						                <select id="city" name="movietypedetail">
+											<option >MV</option>
+										</select>
+						</p>				
+						<div style="text-align:center;width:75px" class="btn-group form-group" data-toggle="buttons"  >
+						
+						
+						<p style="vertical-align:top;">
+						    <span >电影描述：</span>
+						</p>
+						<p>
+						   <textarea name="introduction"></textarea>
+                       	</p>
+						<p>
+							  <input id="confirmUpload" type="submit" value="点击提交" style="font-size:14px;width:70px">
+						</p>	 
+                       	
+                       
+				       </div></form>  	
+						
+				      </div> 
+                 
+			</div>	
+		</div>
+<div style="background:#fff7fb; width: 100%;margin-top:40px ;height: 15%;" >
+				
+					
+						<div class="divCSS"  style="text-align: center;padding-top: 20px;font-size: 20px;font-family: serif;">
+							
+							<a href="#" >关于</a>
+					        <a href="#" style="margin-left: 10px">版权</a>
+							<a href="#" style="margin-left: 10px">广告</a>
+							<a href="#" style="margin-left: 10px">开发者</a>
+							<hr style="color: red;" >
+						</div>
 		</div>
 	</div>
-</body>
+  </body>
+  <script>
+  $(function(){
+  $("#confirmUpload").click(function(event) {
+	   
+	//循环查看状态
+	   var t = setInterval(function(){	
+		   console.log("进度条");
+	               $.ajax({
+	                    url: 'UploadProgressHandle',
+	                    type: 'POST',		                   
+	                    dataType : "json",	        		  
+              success: function (result) {	                        
+                 if(result.progress!=0){   	 
+                $("#progressbar").text(Math.floor(((result.progress)*100)/(result.totalSize))+"%");  
+                 $("#progress").css("width",(((result.progress)*100)/(result.totalSize)+"%"));
+                 }
+                 else{
+                	 $("#progressbar").text("正在解析文件，请等待...").css("color","red"); 
+                 }
+             },
+	                     error: function(){
+	                    	 console.log("Progress error...");
+	                   }
+          });
+      }, 1000);		 
+		
+		
+	
+	
+	
+		
+	});
+  })
+
+</script>	
+<script>
+	var cities;
+	$(function(){
+		cities=[
+		           ["喜剧","科幻","动作","恐怖"],
+		           ["足球","篮球","羽毛球","乒乓球"],
+		           ["MV"],
+		           ["TV"],
+		           ["新闻"],
+		           ];
+	})
+
+	function chg1(){
+		$("#city option").remove();
+		$("#city").val("<option>请选择</option>");
+		var newobjects= cities[$("#province").val()];
+		for(var i=0;i<newobjects.length;i++){
+			$("#city").append("<option value='"+newobjects[i]+"'>"+newobjects[i]+"</option>");
+		}
+	}
+</script>
+
+<script>
+        function handleFile(){
+        	$("#uploadmsg").hide();
+        	$("#progressbar").text("0%");
+		     $("#progress").css("width","1px"); 
+            $("#fileName").val($("#filemovie").val());
+            var reg = /[^\\\/]*[\\\/]+/g; //匹配文件的名称和后缀的正则表达式
+		    var name = $("#fileName").val().replace(reg, '');
+		    var postfix = /\.[^\.]+/.exec(name);//获取文件的后缀
+		    var text =name.substr(0,postfix['index']);//参考网址：http://www.jb51.net/article/66470.htm
+			$("#url").val(text);
+        }
+</script>
+
+<style type="text/css">
+			.divCSS a{
+			color: #BEBEBE;	
+			}
+</style>
+
 </html>

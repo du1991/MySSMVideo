@@ -27,7 +27,7 @@
 					</c:if>
 					<!--四：上传的效果：没有登录就提示，只有登录了才能上传-->
 					<c:if test="${!empty sessionScope}">
-						<a href="upload">上传</a>
+						<a href="upload?ss=null">上传</a>
 					</c:if>
 					<c:if test="${empty sessionScope}">
 						<a onclick="pleaseupload()">上传</a>

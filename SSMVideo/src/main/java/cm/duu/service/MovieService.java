@@ -17,5 +17,6 @@ public interface MovieService {
 	public List<Movie> queryMoivesForSearch(String keyWords);
 	public List<Movie> queryMoviesForUserUpload(User user);
 	public List<Movie> queryMoviesForUserUploadLimitFive(User user);
+	
 
 }

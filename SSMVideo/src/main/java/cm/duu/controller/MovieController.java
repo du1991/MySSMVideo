@@ -80,8 +80,7 @@ public class MovieController {
 		map.put("singlemovie",movie);
 		map.put("rightmovies",movieService.queryByType(movie));
 		map.put("isuploadornot", isuploadornot);
-		map.put("uploadmovies", movieService.queryMoviesForUserUploadLimitFive((User)(request.getSession().getAttribute("sessionuser"))));
-		
+		map.put("uploadmovies", movieService.queryMoviesForUserUploadLimitFive((User)(request.getSession().getAttribute("sessionuser"))));		
 		map.put("contents", contentService.queryByMovie(movie.getId()));
 		
 		return new ModelAndView("SingleMovie","mv",map);

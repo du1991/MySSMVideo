@@ -1,8 +1,12 @@
 package cm.duu.controller;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +23,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 
+import cm.duu.constant.LIstMovieType;
+import cm.duu.constant.UploadConstant;
+import cm.duu.constant.UploadProgressSave;
 import cm.duu.dao.UserDao;
 import cm.duu.entity.Movie;
 import cm.duu.entity.User;
+import cm.duu.enums.Moviesenum;
 import cm.duu.service.MovieService;
 import cm.duu.service.UserService;
 
@@ -73,28 +81,66 @@ public class UserController {
 	}
 
 	// 主页跳转到上传页面
+	//为什么传参数ss-->因为上传页面的提交按钮的controller（'uploadfile'）需要跳转 controller（upload）
+	//所以，进controller（upload），有两个地方：1.主页上传 2.下面的controller层，起到一个区分的作用
 	@RequestMapping("/upload")
-	public String upload() {
-		return "upload";
-	}
-
-	// 上传页面点击提交按钮
-	@RequestMapping("/uploadfile")
-	public ModelAndView upload(@RequestParam("file") MultipartFile file, HttpServletRequest request,
-			@ModelAttribute("movie") Movie movie) throws IOException {
-
-		String fileName = file.getOriginalFilename();
-
-		File dir = new File("/Users/rimi/tomcat9/webapps/uplo", fileName);
-		if (!dir.exists()) {
-			dir.mkdirs();
+	public ModelAndView upload(@RequestParam("ss") String ss) {
+		ModelAndView mode=new ModelAndView();
+		if(ss!=null){
+			mode.addObject("success", ss);
 		}
-		file.transferTo(dir);
-
-		movie.setUsername(((User) (request.getSession().getAttribute("sessionuser"))).getUsername());
-		movie.setMovieurl("../uplo/" + file.getOriginalFilename());
+		mode.addObject("upload");
+		return mode;
+	}
+	
+	//上传页面文件浏览结束 将视频上传服务器并写入数据库
+	@RequestMapping(value="/uploadfile")
+	public String uploadfile(@RequestParam("file") MultipartFile file,HttpServletRequest request,@ModelAttribute("movie") Movie movie) throws IOException{
+		InputStream inputStream = file.getInputStream();
+		System.out.println(file.getOriginalFilename());
+        FileOutputStream fos = new FileOutputStream(UploadConstant.UPLOADPATH+file.getOriginalFilename());
+        int count=1;//计数器
+        long uploaded=0;//以上传的大小
+        byte[] buf = new byte[1024];
+        int len = 0;
+        request.getSession().setAttribute("totalSize", file.getSize());
+        while ((len = inputStream.read(buf)) != -1) { 
+        		if(len==1024){      	
+        		     uploaded+=count*1024;
+        		}
+        		else{
+        			uploaded+=len;
+        		}
+        		 request.getSession().setAttribute("uploaded", uploaded);
+        		fos.write(buf, 0, len);  
+        }
+        request.getSession().removeAttribute("totalSize");
+        request.getSession().removeAttribute("uploaded");
+        fos.close();
+        //写入数据库
+        movie.setUsername(((User) (request.getSession().getAttribute("sessionuser"))).getUsername());
+		movie.setMovieurl( UploadConstant.UPLOAMYSQLDPATH+ movie.getMoviename());
+		movie.setMovietypehead(LIstMovieType.MOVIEtyphead[Integer.parseInt(movie.getMovietypehead())]);
+		System.out.println(movie.getIntroduction());;
 		movieService.addMovie(movie, request);
-		return new ModelAndView("upload", "su", true);
+        return "redirect:upload?ss=1";
+	}
+	
+	//进度状态查看
+	@RequestMapping("/UploadProgressHandle")
+	@ResponseBody
+	public Object UploadProgressHandle(HttpServletRequest request){
+		Map<String,Object> map=new HashMap<>();
+		if(request.getSession().getAttribute("uploaded")!=null&&request.getSession().getAttribute("totalSize")!=null)
+		{
+		map.put("progress", request.getSession().getAttribute("uploaded"));
+		map.put("totalSize", request.getSession().getAttribute("totalSize"));
+		}
+		else{
+			map.put("progress", 0);
+			map.put("totalSize", 1);
+		}
+		return new Gson().toJson(map);
 	}
 
 	// 上传页面跳转至我的上传

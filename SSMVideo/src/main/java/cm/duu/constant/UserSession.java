@@ -1,4 +1,4 @@
-package cm.duu.entity;
+package cm.duu.constant;
 
 import java.util.HashMap;
 import java.util.Map;

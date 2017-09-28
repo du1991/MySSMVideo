@@ -152,7 +152,7 @@ $(function(){
 			return;
 		}
 		//名字重复不能提交
-		if($("#username_msg").text()!=null){
+		if($("#username_msg").text().val()>0){
 			e.preventDefault();
 			return;
 		}

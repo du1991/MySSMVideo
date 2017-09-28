@@ -7,8 +7,12 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import cm.duu.dao.ContentDao;
 import cm.duu.dao.MovieDao;
+import cm.duu.entity.Content;
 import cm.duu.entity.Movie;
 import cm.duu.entity.User;
 import cm.duu.service.MovieService;
@@ -18,29 +22,31 @@ public class MovieServiceImpl implements MovieService {
 	@Resource
 	private MovieDao moviedao;
 
+
+	
+
 	public List<Movie> queryMoivesForSearch(String keyWords) {
 		return moviedao.queryMoivesForSearch(keyWords);
 
 	}
 
-	public List<Movie> queryMoviesForUserUploadLimitFive(User user){
-		List<Movie> list=moviedao.queryMoviesForUserUpload(user);
-		if(list.size()<6){
+	public List<Movie> queryMoviesForUserUploadLimitFive(User user) {
+		List<Movie> list = moviedao.queryMoviesForUserUpload(user);
+		if (list.size() < 6) {
 			return list;
 		}
-		List<Movie> listnew=new ArrayList<Movie>();
-		for(int i=0;i<5;i++){
+		List<Movie> listnew = new ArrayList<Movie>();
+		for (int i = 0; i < 5; i++) {
 			listnew.add(list.get(i));
 		}
 
 		return listnew;
 	}
-	
-	public List<Movie> queryMoviesForUserUpload(User user){	
+
+	public List<Movie> queryMoviesForUserUpload(User user) {
 		return moviedao.queryMoviesForUserUpload(user);
 	}
-	
-	
+
 	// 分页查询的Service层
 	public Map<String, Object> queryMoviesByPage(Movie movie, int nowpage) {
 
@@ -66,12 +72,13 @@ public class MovieServiceImpl implements MovieService {
 			if (i == nowpage) {// 判断是否为当前页
 				map.put("mappingMovies", moviedao.queryMoviesByPage(movie.getMovietypedetail(), (i - 1) * 10, 10));
 				map.put("nowPage", i);
-				
+
 				sb.append("『" + i + "』"); // 构建分页导航条
 			} else {
-				
+
 				sb.append("<a href='/show" + movie.getMovietypehead() + "?page=" + i + "&movietypedetail="
-						+ movie.getMovietypedetail() + "&movietypehead="+movie.getMovietypehead()+"'>" + i + "</a>");
+						+ movie.getMovietypedetail() + "&movietypehead=" + movie.getMovietypehead() + "'>" + i
+						+ "</a>");
 			}
 			sb.append("　"); // 构建分页导航条
 		}
@@ -94,7 +101,7 @@ public class MovieServiceImpl implements MovieService {
 		}
 	}
 
-	public void addMovie(Movie movie,HttpServletRequest request) {
+	public void addMovie(Movie movie, HttpServletRequest request) {
 		if (movie.getMoviepicture() == null) {
 			movie.setMoviepicture("/images/logo.png");
 		}

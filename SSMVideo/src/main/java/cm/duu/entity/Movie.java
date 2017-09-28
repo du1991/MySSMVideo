@@ -13,6 +13,7 @@ public class Movie {
 	private String movietypedetail;
 	private String publishtime;
 	private String username;
+
 	
 	
 	
