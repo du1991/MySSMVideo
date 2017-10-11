@@ -12,10 +12,8 @@
 
 <link rel="stylesheet" type="text/css" href="css/register.css" />
 
-
 </head>
-<body>
-	
+<body>	
 	<header> <a class="navbar-brand" href="home">
 		<h1>
 			<img src="images/logo.png" alt="" />
@@ -24,7 +22,7 @@
 	<div class="desc">欢迎注册</div>
 	</header>
 	<section id="Message_reminding">
-	<form method="post" action="doregist">
+	<form method="post" action="doregist" enctype="multipart/form-data">
 		<div class="register-box">
 			<label for="username" class="username_label">用 户 名 
 				<input name="username" maxlength="20" type="text" placeholder="您的用户名和登录名" />

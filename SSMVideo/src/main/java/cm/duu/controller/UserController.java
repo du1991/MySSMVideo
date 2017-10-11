@@ -54,8 +54,9 @@ public class UserController {
 	}
 	
 	// 注册插入用户
-	@RequestMapping(value = "/doregist", method = RequestMethod.POST)
+	@RequestMapping(value = "/doregist",method = RequestMethod.POST)
 	public String registUserController(@ModelAttribute("user") User user) {
+		System.out.println(user.getUsername());
 		userService.registUser(user.getUsername(), user.getPassword());
 		return "redirect:registtransfer";
 	}
@@ -97,6 +98,7 @@ public class UserController {
 	@RequestMapping(value="/uploadfile")
 	public String uploadfile(@RequestParam("file") MultipartFile file,HttpServletRequest request,@ModelAttribute("movie") Movie movie) throws IOException{
 		InputStream inputStream = file.getInputStream();
+		System.out.println(movie.getMoviename());
 		System.out.println(file.getOriginalFilename());
         FileOutputStream fos = new FileOutputStream(UploadConstant.UPLOADPATH+file.getOriginalFilename());
         int count=1;//计数器

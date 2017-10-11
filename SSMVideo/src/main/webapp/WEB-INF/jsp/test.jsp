@@ -6,14 +6,35 @@
 <title>Home</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="js/jquery-1.11.1.min.js"></script>
 </head>
 
 <body>
-<form  action="uploadfile1" method="post" enctype="multipart/form-data" >	
-	<input  type="file" name="file"/>
-	<input  type="submit"/>
+	<script type="text/javascript">
+	
+	function ssss(){
+		$.ajax({
+			url : "/ss",
+			dataType : "json",
+			type: 'post',
+			data : {
+				"moviename" : $("#moviename").val(),
+				
+			},
+			success : function(result) {
+				alert("成功");
+			},
+			error : function() {
+				alert("error");
+			}
+		});
+	}
+	</script>
+	
+	<input id="moviename"  type="text" name="moviename"/>
+	<input  type="submit" onclick="ssss()"/>
 
-</form>
+
 	           		
 
 

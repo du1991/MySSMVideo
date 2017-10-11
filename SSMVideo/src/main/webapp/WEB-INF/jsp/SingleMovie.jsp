@@ -39,7 +39,7 @@
 						<span id="welcome">欢迎：${sessionScope.sessionuser.username}</span>
 					</c:if>
 					<c:if test="${!empty sessionScope}">
-						<a href="upload">上传</a>
+						<a href="upload?ss=null">上传</a>
 					</c:if>
 					<c:if test="${empty sessionScope}">
 						<a onclick="pleaseupload()">上传</a>
@@ -163,14 +163,10 @@
 							value="${mv['singlemovie'].movietypedetail }" /> <input
 							style="display: none" id="publishtime"
 							value="${mv['singlemovie'].publishtime }" />
-
-
 						<h3>${mv['singlemovie'].moviename }</h3>
-
-
 					</div>
-					<div class="video-grid">
-						<video width="100%" height="100%" controls="controls"> <source
+					<div class="video-grid" >
+						<video width="980px" height="440px" controls="controls" style="object-fit:fill;"> <source
 							src="${mv['singlemovie'].movieurl }" type="video/mp4"></video>
 					</div>
 				</div>
@@ -191,9 +187,7 @@
 						if(($("#p1").val().trim())==""){ 
 					        alert("评论不能为空！");
 							return;
-					    }
-						  
-						
+					    }						  						
 						$.ajax({
 									url : "ContentController",
 									dataType : "json",
@@ -309,7 +303,7 @@
 								$.ajax({
 											url : "/ajaxContent",
 											dataType : "json",
-											type : "post",
+											type : "get",
 
 											data : {
 												"content" : $("#p1").val(),
