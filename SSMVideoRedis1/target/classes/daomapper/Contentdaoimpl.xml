@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cm.duu.dao.ContentDao">
+  <!-- 先定义一个Interface，UserMapper，然后Mapper文件的namespace指向的就是这个Interface， UserInterface里定义的方法和UserMapper.xml文件中的一样, 
+        然后代码里直接使用接口 -->
+
+<!-- 分页查询评论 查询总条数 -->
+<select id="queryByContentpage"    resultType="java.lang.Integer">
+
+  select count(*) from  contents where   movieid = #{movieid}
+
+</select>
+<select id="queryByMovie"  resultType="cm.duu.entity.Content">
+
+select * from  contents where  movieid = #{movieid} order by contenttime desc
+
+</select>
+
+<!-- <select id="queryByContent"  resultType="cm.duu.entity.Content">
+
+select * from contents where movieid= #{movieid} limit #{arg1} ,#{arg2} order by contenttime desc
+
+</select> -->
+ <select id="queryByContent"   resultType="cm.duu.entity.Content">
+     select * from (select * from contents ORDER BY contenttime DESC) as a where movieid= #{arg0} limit #{arg1} ,#{arg2}
+        
+    
+    </select>
+
+
+
+
+<!-- 查询最近一条评论 -->
+<select id="queryOneForJustNow" resultType="cm.duu.entity.Content">
+	select * from contents order by contenttime desc limit 1  
+</select>
+
+<!--  添加评论-->
+<insert id="addByText"  parameterType="cm.duu.entity.Content"  >
+
+insert into contents (username,moviename,movieid,content) values 
+ (#{username},#{moviename},#{movieid},#{content})
+
+
+</insert>
+
+	</mapper>
