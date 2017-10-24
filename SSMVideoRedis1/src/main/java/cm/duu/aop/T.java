@@ -41,5 +41,10 @@ public class T {
 			return queryDataFromMysql;
 		}
 	}
+	
+	public void doafter(){
+		Jedis jedis = jedisConnectionFactory.getConnection().getNativeConnection();
+		jedis.flushAll();
+	}
 
 }

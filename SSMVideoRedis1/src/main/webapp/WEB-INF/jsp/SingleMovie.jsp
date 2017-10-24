@@ -166,7 +166,7 @@
 						<h3>${mv['singlemovie'].moviename }</h3>
 					</div>
 					<div class="video-grid" >
-						<video width="980px" height="440px" controls="controls" style="object-fit:fill;"> <source
+						<video width="100%" height="100%" controls="controls" style="object-fit:fill;"> <source
 							src="${mv['singlemovie'].movieurl }" type="video/mp4"></video>
 					</div>
 				</div>

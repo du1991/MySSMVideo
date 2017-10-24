@@ -18,5 +18,8 @@ public interface MovieService {
 	public List<Movie> queryMoviesForUserUpload(User user);
 	public List<Movie> queryMoviesForUserUploadLimitFive(User user);
 	
+	
+	
+	
 
 }
